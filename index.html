@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>XNTRIC — Handcrafted Artisanry</title>
   <meta name="description" content="Handcrafted wooden jewelry, stands and objects made in Hyderabad. Designed and built by Shujauddin."/>
+  <script>
+  // Redirect Netlify Identity invite/recovery tokens to admin panel
+  if (window.location.hash && (
+    window.location.hash.includes('invite_token') ||
+    window.location.hash.includes('recovery_token') ||
+    window.location.hash.includes('confirmation_token')
+  )) {
+    window.location.href = '/admin/#' + window.location.hash.slice(1);
+  }
+</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
