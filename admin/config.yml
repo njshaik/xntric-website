@@ -1,0 +1,237 @@
+# ============================================================
+#  XNTRIC — Decap CMS Configuration (for Netlify hosting)
+#  
+#  ⚠️  BEFORE YOU GO LIVE:
+#  Replace YOUR_GITHUB_USERNAME with your actual GitHub username
+#  Replace YOUR_REPO_NAME with your GitHub repository name
+# ============================================================
+
+backend:
+  name: git-gateway        # Netlify handles GitHub auth — no OAuth app needed
+  branch: main
+
+# Where CMS-uploaded images are stored
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# ============================================================
+#  COLLECTIONS
+# ============================================================
+
+collections:
+
+  # ----------------------------------------------------------
+  #  1. BLOG POSTS
+  # ----------------------------------------------------------
+  - name: "blog"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - label: "Post Title"
+        name: "title"
+        widget: "string"
+        hint: "e.g. Why I Started Making Earrings"
+
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "DD MMM YYYY"
+        time_format: false
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Process", value: "process" }
+          - { label: "Tools", value: "tools" }
+          - { label: "Design", value: "design" }
+          - { label: "Material", value: "material" }
+          - { label: "Finish", value: "finish" }
+          - { label: "Jewelry", value: "jewelry" }
+
+      - label: "Read Time (minutes)"
+        name: "read_time"
+        widget: "number"
+        default: 4
+        value_type: "int"
+        min: 1
+        max: 30
+
+      - label: "Cover Image"
+        name: "cover"
+        widget: "image"
+        hint: "Recommended: 1200 x 700px"
+
+      - label: "Cover Image Caption (optional)"
+        name: "cover_caption"
+        widget: "string"
+        required: false
+
+      - label: "Short Excerpt"
+        name: "excerpt"
+        widget: "text"
+        hint: "1–2 sentences shown on the blog listing page"
+
+      - label: "Post Body"
+        name: "body"
+        widget: "markdown"
+
+      - label: "Featured Post?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Show this post in the featured banner at the top of the blog page"
+
+  # ----------------------------------------------------------
+  #  2. WORKS / PROJECTS
+  # ----------------------------------------------------------
+  - name: "works"
+    label: "Works"
+    label_singular: "Work / Project"
+    folder: "_works"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Project Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Collection / Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Wooden Jewelry", value: "jewelry" }
+          - { label: "Mobile Stand Designs", value: "mobile" }
+          - { label: "Laptop Stand Designs", value: "laptop" }
+          - { label: "Desktop Stand Designs", value: "desktop" }
+
+      - label: "Short Tagline"
+        name: "tagline"
+        widget: "string"
+        hint: "e.g. Lightweight elegance, hand-cut from solid walnut"
+
+      - label: "Thumbnail Image"
+        name: "thumb"
+        widget: "image"
+        hint: "Main listing image — recommended: 600 x 400px"
+
+      - label: "Gallery Images"
+        name: "gallery"
+        widget: "list"
+        label_singular: "Image"
+        field:
+          label: "Image"
+          name: "image"
+          widget: "image"
+
+      - label: "Project Description"
+        name: "body"
+        widget: "markdown"
+
+      - label: "Material"
+        name: "material"
+        widget: "string"
+        hint: "e.g. Black Walnut, Teak, Bamboo"
+
+      - label: "Finish"
+        name: "finish"
+        widget: "string"
+        hint: "e.g. Beeswax polish, Danish oil"
+
+      - label: "Year Made"
+        name: "year"
+        widget: "number"
+        default: 2025
+        value_type: "int"
+        min: 2020
+        max: 2030
+
+      - label: "Available for Custom Order?"
+        name: "custom_available"
+        widget: "boolean"
+        default: true
+
+  # ----------------------------------------------------------
+  #  3. GALLERY
+  # ----------------------------------------------------------
+  - name: "gallery"
+    label: "Gallery"
+    label_singular: "Gallery Image"
+    folder: "_gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Title / Caption"
+        name: "title"
+        widget: "string"
+
+      - label: "Image"
+        name: "image"
+        widget: "image"
+        hint: "Recommended: min 800px wide"
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Works in Progress", value: "wip" }
+          - { label: "Finished Pieces", value: "finished" }
+          - { label: "Workshop", value: "workshop" }
+          - { label: "Detail Shots", value: "detail" }
+
+      - label: "Show in Homepage Slideshow?"
+        name: "homepage"
+        widget: "boolean"
+        default: true
+
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "DD MMM YYYY"
+        time_format: false
+
+  # ----------------------------------------------------------
+  #  4. SITE SETTINGS
+  # ----------------------------------------------------------
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "_data/settings.yml"
+        fields:
+          - label: "Site Title"
+            name: "title"
+            widget: "string"
+            default: "XNTRIC"
+
+          - label: "Tagline"
+            name: "tagline"
+            widget: "string"
+            default: "Handcrafted Artisanry"
+
+          - label: "Your Email"
+            name: "email"
+            widget: "string"
+
+          - label: "Your Phone"
+            name: "phone"
+            widget: "string"
+
+          - label: "Location"
+            name: "location"
+            widget: "string"
+            default: "Hyderabad, Telangana"
+
+          - label: "Instagram URL"
+            name: "instagram"
+            widget: "string"
+            required: false
+
+          - label: "YouTube URL"
+            name: "youtube"
+            widget: "string"
+            required: false

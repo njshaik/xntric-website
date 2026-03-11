@@ -1,0 +1,21 @@
+# Netlify configuration for XNTRIC
+# This file tells Netlify how to serve your site
+
+[build]
+  publish = "."        # Serve files from the root folder
+
+# Enable Netlify Identity for CMS login
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirect rules — makes URLs cleaner
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+# Security headers
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

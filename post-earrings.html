@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Why I Started Making Earrings — XNTRIC Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream: #f5f0e8; --warm-white: #faf8f4; --charcoal: #1a1714; --brown: #6b4c2a; --light-brown: #c4965a; --muted: #8c7b6b; --divider: #e0d8cc; --font-display: 'Cormorant Garamond', serif; --font-body: 'DM Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--warm-white); color: var(--charcoal); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 70px; background: rgba(250,248,244,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--divider); }
+    .logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; letter-spacing: 0.12em; color: var(--charcoal); text-decoration: none; }
+    nav { display: flex; gap: 2.5rem; }
+    nav a { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: var(--charcoal); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--charcoal); }
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: var(--warm-white); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-family: var(--font-display); font-size: 2.2rem; color: var(--charcoal); text-decoration: none; }
+    .back-bar { padding: 100px 5vw 0; }
+    .back-link { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--charcoal); }
+    .post-hero { padding: 2.5rem 5vw 0; }
+    .post-tag { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 1rem; }
+    .post-title { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; line-height: 1.08; margin-bottom: 1.5rem; }
+    .post-title em { font-style: italic; color: var(--brown); }
+    .post-meta { display: flex; gap: 2rem; font-size: 0.75rem; color: var(--muted); padding-bottom: 2rem; border-bottom: 1px solid var(--divider); }
+    .post-cover { width: 100%; max-height: 500px; object-fit: cover; display: block; margin: 3rem 0; }
+    .post-body { max-width: 680px; margin: 0 auto; padding: 0 5vw 6rem; }
+    .post-body p { font-size: 1rem; line-height: 1.95; color: #3a3330; margin-bottom: 1.8rem; }
+    .post-body h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 300; margin: 3rem 0 1rem; }
+    .post-body h2 em { font-style: italic; color: var(--brown); }
+    .post-body blockquote { border-left: 2px solid var(--light-brown); padding: 0.5rem 0 0.5rem 2rem; margin: 2.5rem 0; font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--brown); line-height: 1.5; }
+    .post-gallery { display: grid; gap: 1rem; margin: 3rem 0; }
+    .post-gallery.two-col { grid-template-columns: 1fr 1fr; }
+    .post-gallery.three-col { grid-template-columns: 1fr 1fr 1fr; }
+    .post-gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .gallery-caption { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: -0.5rem; margin-bottom: 1rem; }
+    .post-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--divider); }
+    .tag { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.35rem 0.9rem; border: 1px solid var(--divider); color: var(--muted); }
+    .related-section { background: var(--cream); padding: 5rem 5vw; }
+    .related-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 2rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .related-card { text-decoration: none; color: inherit; }
+    .related-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; margin-bottom: 1rem; }
+    .related-tag { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 0.4rem; }
+    .related-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; }
+    footer { background: var(--charcoal); border-top: 1px solid rgba(255,255,255,0.08); padding: 4rem 5vw; display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: start; color: rgba(250,248,244,0.6); }
+    .footer-logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; letter-spacing: 0.12em; color: var(--cream); text-decoration: none; }
+    .footer-logo span { display: block; font-size: 0.65rem; font-family: var(--font-body); letter-spacing: 0.25em; text-transform: uppercase; color: var(--light-brown); margin-top: 0.2rem; }
+    .footer-nav { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+    .footer-nav a { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,248,244,0.5); text-decoration: none; }
+    .footer-contact { text-align: right; }
+    .footer-contact p { font-size: 0.82rem; line-height: 1.8; }
+    .footer-contact a { color: var(--light-brown); text-decoration: none; }
+    .footer-bottom { grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; font-size: 0.7rem; text-align: center; color: rgba(250,248,244,0.25); }
+    @media (max-width: 768px) {
+      nav { display: none; } .hamburger { display: flex; }
+      header { justify-content: space-between; }
+      .logo { position: absolute; left: 50%; transform: translateX(-50%); }
+      .post-gallery.two-col, .post-gallery.three-col { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; text-align: center; }
+      .footer-contact { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo">XNTRIC</a>
+  <nav><a href="index.html">Home</a><a href="works.html">Works</a><a href="blog.html" class="active">Blog</a><a href="contact.html">Contact</a></nav>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</header>
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a><a href="works.html">Works</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="back-bar"><a href="blog.html" class="back-link">← Back to Journal</a></div>
+
+<div class="post-hero">
+  <p class="post-tag">Jewelry</p>
+  <h1 class="post-title">Why I Started<br>Making <em>Earrings</em></h1>
+  <div class="post-meta"><span>Shujauddin</span><span>5 Dec 2024</span><span>3 min read</span></div>
+</div>
+
+<img class="post-cover" src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1400&q=85" alt="Wooden earrings"/>
+
+<div class="post-body">
+  <p>It started with a gift problem. I wanted to give my sister something for Eid that felt considered — not something off a shelf, not something generic. I'd been making larger pieces for a while: stands, trays, small boxes. But jewellery had never crossed my mind, because I'd always thought of it as a different discipline entirely.</p>
+
+  <p>I was wrong. It's the same discipline, just smaller. And smaller turns out to be harder in all the most interesting ways.</p>
+
+  <blockquote>"When the piece fits in your palm, there's nowhere for a mistake to hide."</blockquote>
+
+  <h2>The <em>Scale Problem</em></h2>
+
+  <p>When I first tried cutting earring blanks from a sheet of walnut, I broke four pieces before I got one clean. The wood was fine — the problem was my sawing technique. At small scales, any wobble in the cut becomes visible. I had to slow down considerably, let the saw do the work, and stop gripping the wood as if it might escape.</p>
+
+  <div class="post-gallery two-col">
+    <img src="https://images.unsplash.com/photo-1573408301185-9519f94bcc93?w=600&q=80" alt="Earring blanks"/>
+    <img src="https://images.unsplash.com/photo-1518611507436-f9221403cca2?w=600&q=80" alt="Finished pair"/>
+  </div>
+  <p class="gallery-caption">Blanks before shaping (left) · Finished pair on a dark background (right)</p>
+
+  <h2>What <em>Wood</em> Works</h2>
+  <p>Not all wood is suitable for earrings. It needs to be dense enough to hold fine detail without chipping, light enough to wear comfortably all day, and stable enough not to warp in humidity. Walnut is my go-to — it hits all three. I've also had good results with cherry and, surprisingly, coconut shell composite.</p>
+
+  <div class="post-gallery three-col">
+    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&q=80" alt="Walnut"/>
+    <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&q=80" alt="Cherry"/>
+    <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80" alt="Detail work"/>
+  </div>
+  <p class="gallery-caption">Walnut · Cherry · Detail carving in progress</p>
+
+  <p>The gift landed well. My sister wore the earrings to three consecutive occasions, which I consider the highest possible endorsement. I've been making them ever since — and now they're the most requested piece in the workshop.</p>
+
+  <div class="post-tags">
+    <span class="tag">Jewelry</span><span class="tag">Walnut</span><span class="tag">Small Scale</span><span class="tag">Gift</span>
+  </div>
+</div>
+
+<section class="related-section">
+  <p class="related-label">Continue Reading</p>
+  <div class="related-grid">
+    <a href="post-wood.html" class="related-card">
+      <img src="https://images.unsplash.com/photo-1503602642458-232111445657?w=600&q=80" alt="Wood"/>
+      <p class="related-tag">Process</p>
+      <h3 class="related-title">On Choosing Wood: A Beginner's Confusion</h3>
+    </a>
+    <a href="post-chisels.html" class="related-card">
+      <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&q=80" alt="Chisels"/>
+      <p class="related-tag">Tools</p>
+      <h3 class="related-title">The Five Chisels I Actually Use</h3>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div><a href="index.html" class="footer-logo">XNTRIC<span>Handcrafted Artisanry</span></a></div>
+  <nav class="footer-nav"><a href="index.html">Home</a><a href="works.html">Works</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></nav>
+  <div class="footer-contact"><p>Hyderabad, Telangana</p><p><a href="mailto:shujauddin@xntric.in">shujauddin@xntric.in</a></p></div>
+  <div class="footer-bottom">© 2025 XNTRIC. All rights reserved.</div>
+</footer>
+<script>
+  document.getElementById('hamburger').addEventListener('click', () => do

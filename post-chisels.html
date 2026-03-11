@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Five Chisels I Actually Use — XNTRIC Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream: #f5f0e8; --warm-white: #faf8f4; --charcoal: #1a1714; --brown: #6b4c2a; --light-brown: #c4965a; --muted: #8c7b6b; --divider: #e0d8cc; --font-display: 'Cormorant Garamond', serif; --font-body: 'DM Sans', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--warm-white); color: var(--charcoal); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 70px; background: rgba(250,248,244,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--divider); }
+    .logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; letter-spacing: 0.12em; color: var(--charcoal); text-decoration: none; }
+    nav { display: flex; gap: 2.5rem; }
+    nav a { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: var(--charcoal); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--charcoal); }
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: var(--warm-white); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-family: var(--font-display); font-size: 2.2rem; color: var(--charcoal); text-decoration: none; }
+    .back-bar { padding: 100px 5vw 0; }
+    .back-link { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--charcoal); }
+    .post-hero { padding: 2.5rem 5vw 0; }
+    .post-tag { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 1rem; }
+    .post-title { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; line-height: 1.08; margin-bottom: 1.5rem; }
+    .post-title em { font-style: italic; color: var(--brown); }
+    .post-meta { display: flex; gap: 2rem; font-size: 0.75rem; color: var(--muted); padding-bottom: 2rem; border-bottom: 1px solid var(--divider); }
+    .post-cover { width: 100%; max-height: 520px; object-fit: cover; display: block; margin: 3rem 0; }
+    .post-body { max-width: 680px; margin: 0 auto; padding: 0 5vw 6rem; }
+    .post-body p { font-size: 1rem; line-height: 1.95; color: #3a3330; margin-bottom: 1.8rem; }
+    .post-body h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 300; margin: 3rem 0 1rem; }
+    .post-body h2 em { font-style: italic; color: var(--brown); }
+    .post-body blockquote { border-left: 2px solid var(--light-brown); padding: 0.5rem 0 0.5rem 2rem; margin: 2.5rem 0; font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--brown); line-height: 1.5; }
+    .post-gallery { display: grid; gap: 1rem; margin: 3rem 0; }
+    .post-gallery.two-col { grid-template-columns: 1fr 1fr; }
+    .post-gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .gallery-caption { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: -0.5rem; margin-bottom: 1rem; }
+    /* Chisel card */
+    .chisel-card { display: grid; grid-template-columns: 120px 1fr; gap: 1.5rem; border: 1px solid var(--divider); padding: 1.5rem; margin: 2rem 0; align-items: start; }
+    .chisel-card img { width: 120px; height: 120px; object-fit: cover; }
+    .chisel-num { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 0.3rem; }
+    .chisel-name { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .chisel-desc { font-size: 0.85rem; line-height: 1.75; color: var(--muted); }
+    .post-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--divider); }
+    .tag { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.35rem 0.9rem; border: 1px solid var(--divider); color: var(--muted); }
+    .related-section { background: var(--cream); padding: 5rem 5vw; }
+    .related-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 2rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .related-card { text-decoration: none; color: inherit; }
+    .related-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; margin-bottom: 1rem; }
+    .related-tag { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 0.4rem; }
+    .related-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; line-height: 1.2; }
+    footer { background: var(--charcoal); border-top: 1px solid rgba(255,255,255,0.08); padding: 4rem 5vw; display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: start; color: rgba(250,248,244,0.6); }
+    .footer-logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; letter-spacing: 0.12em; color: var(--cream); text-decoration: none; }
+    .footer-logo span { display: block; font-size: 0.65rem; font-family: var(--font-body); letter-spacing: 0.25em; text-transform: uppercase; color: var(--light-brown); margin-top: 0.2rem; }
+    .footer-nav { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+    .footer-nav a { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,248,244,0.5); text-decoration: none; }
+    .footer-contact { text-align: right; }
+    .footer-contact p { font-size: 0.82rem; line-height: 1.8; }
+    .footer-contact a { color: var(--light-brown); text-decoration: none; }
+    .footer-bottom { grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; font-size: 0.7rem; text-align: center; color: rgba(250,248,244,0.25); }
+    @media (max-width: 768px) {
+      nav { display: none; } .hamburger { display: flex; }
+      header { justify-content: space-between; }
+      .logo { position: absolute; left: 50%; transform: translateX(-50%); }
+      .post-gallery.two-col { grid-template-columns: 1fr; }
+      .chisel-card { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; text-align: center; }
+      .footer-contact { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo">XNTRIC</a>
+  <nav>
+    <a href="index.html">Home</a><a href="works.html">Works</a>
+    <a href="blog.html" class="active">Blog</a><a href="contact.html">Contact</a>
+  </nav>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</header>
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a><a href="works.html">Works</a>
+  <a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="back-bar"><a href="blog.html" class="back-link">← Back to Journal</a></div>
+
+<div class="post-hero">
+  <p class="post-tag">Tools</p>
+  <h1 class="post-title">The Five <em>Chisels</em><br>I Actually Use</h1>
+  <div class="post-meta">
+    <span>Shujauddin</span><span>2 Feb 2025</span><span>4 min read</span>
+  </div>
+</div>
+
+<img class="post-cover" src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=1400&q=85" alt="Chisel collection"/>
+
+<div class="post-body">
+  <p>I own around thirty chisels. I use five of them regularly. If you're starting out and wondering what to buy, here's the shortlist — with no brand affiliations and no hedging.</p>
+
+  <blockquote>"Buy fewer, better. A sharp cheap chisel beats a dull expensive one, but a sharp good chisel changes how you think about wood."</blockquote>
+
+  <div class="post-gallery two-col">
+    <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80" alt="Bench chisels laid out"/>
+    <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&q=80" alt="Sharpening setup"/>
+  </div>
+  <p class="gallery-caption">The working set (left) and the sharpening station that keeps them that way (right).</p>
+
+  <h2>The <em>Five</em></h2>
+
+  <div class="chisel-card">
+    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=300&q=80" alt="6mm chisel"/>
+    <div>
+      <p class="chisel-num">01</p>
+      <p class="chisel-name">6mm Bench Chisel</p>
+      <p class="chisel-desc">The detail worker. This gets into mortises, cleans up dovetail corners, and does all the fiddly stuff on jewelry pieces. I've rehandled mine twice — the blade is worth keeping.</p>
+    </div>
+  </div>
+
+  <div class="chisel-card">
+    <img src="https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?w=300&q=80" alt="12mm chisel"/>
+    <div>
+      <p class="chisel-num">02</p>
+      <p class="chisel-name">12mm Bench Chisel</p>
+      <p class="chisel-desc">The workhorse. This is the chisel I reach for first on almost every project. Fits most mortise widths I work with, handles paring duty, and is easy to keep sharp.</p>
+    </div>
+  </div>
+
+  <div class="chisel-card">
+    <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&q=80" alt="25mm chisel"/>
+    <div>
+      <p class="chisel-num">03</p>
+      <p class="chisel-name">25mm Bench Chisel</p>
+      <p class="chisel-desc">For wide paring cuts, cleaning up large tenon cheeks, and flattening. Also pulls double duty as a scraper when I'm too lazy to reach for one.</p>
+    </div>
+  </div>
+
+  <div class="chisel-card">
+    <img src="https://images.unsplash.com/photo-1595750580175-94060b9d8f4c?w=300&q=80" alt="skew chisel"/>
+    <div>
+      <p class="chisel-num">04</p>
+      <p class="chisel-name">Skew Chisel (any width)</p>
+      <p class="chisel-desc">I resisted this one for two years and then couldn't believe I'd managed without it. The angled tip reaches into corners a bench chisel never can. Essential for cleaning up stopped dados.</p>
+    </div>
+  </div>
+
+  <div class="chisel-card">
+    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=300&q=80" alt="paring chisel"/>
+    <div>
+      <p class="chisel-num">05</p>
+      <p class="chisel-name">Long Paring Chisel (any width)</p>
+      <p class="chisel-desc">Not for mallet work — this one's hand-pushed only. The extra length gives you control that a bench chisel can't match when you're levelling a long surface or sneaking up on a tight fit.</p>
+    </div>
+  </div>
+
+  <h2>On <em>Sharpening</em></h2>
+  <p>None of this matters if you're not sharpening. I sharpen before every session, not after. My setup is a 1000-grit waterstone for repair work and a 6000-grit for polishing. A leather strop at the end. The whole thing takes under four minutes once it's a habit.</p>
+
+  <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&q=80" alt="Sharpening close-up" style="width:100%;aspect-ratio:16/7;object-fit:cover;margin:2rem 0;"/>
+
+  <p>If you're only going to buy one thing after reading this: buy a good waterstone and sharpen whatever chisels you already have. You'll be surprised how much they improve.</p>
+
+  <div class="post-tags">
+    <span class="tag">Tools</span><span class="tag">Chisels</span>
+    <span class="tag">Beginner</span><span class="tag">Sharpening</span>
+  </div>
+</div>
+
+<section class="related-section">
+  <p class="related-label">Continue Reading</p>
+  <div class="related-grid">
+    <a href="post-wood.html" class="related-card">
+      <img src="https://images.unsplash.com/photo-1503602642458-232111445657?w=600&q=80" alt="Wood"/>
+      <p class="related-tag">Process</p>
+      <h3 class="related-title">On Choosing Wood: A Beginner's Confusion</h3>
+    </a>
+    <a href="post-earrings.html" class="related-card">
+      <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80" alt="Earrings"/>
+      <p class="related-tag">Jewelry</p>
+      <h3 class="related-title">Why I Started Making Earrings</h3>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div><a href="index.html" class="footer-logo">XNTRIC<span>Handcrafted Artisanry</span></a></div>
+  <nav class="footer-nav"><a href="index.html">Home</a><a href="works.html">Works</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></nav>
+  <div class="footer-contact"><p>Hyderabad, Telangana</p><p><a href="mailto:shujauddin@xntric.in">shujauddin@xntric.in</a></p></div>
+  <div class="footer-bottom">© 2025 XNTRIC. All rights reserved.</div>
+</footer>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElement
