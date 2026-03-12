@@ -124,14 +124,14 @@
       <p class="post-card-excerpt">A tool review from someone who owns too many and uses very few. Here's the shortlist that does real work.</p>
       <span class="read-more">Read Post →</span>
     </a>
-    <span class="post-card" style="opacity:0.5;cursor:default;">
+    <a href="post-desk.html" class="post-card">
       <div class="post-card-img"><img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80" alt="Desk"/></div>
       <p class="post-card-tag">Design</p>
       <h3 class="post-card-title">Building a <em>Desk</em> That Fits Your Life</h3>
       <p class="post-card-meta">10 Jan 2025 · 7 min read</p>
       <p class="post-card-excerpt">Custom desk dimensions, cable routing philosophy, and why sheesham keeps winning for all work surfaces.</p>
-      <span class="read-more" style="border-color:var(--light-brown);color:var(--light-brown);">Coming Soon</span>
-    </span>
+      <span class="read-more">Read Post →</span>
+    </a>
     <a href="post-earrings.html" class="post-card">
       <div class="post-card-img"><img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80" alt="Jewelry"/></div>
       <p class="post-card-tag">Jewelry</p>
@@ -145,21 +145,21 @@
 
 <section class="archive-section">
   <p class="archive-label">All Posts</p>
-  <span class="archive-item" style="opacity:0.45;cursor:default;">
+  <a href="post-finish.html" class="archive-item">
     <span class="archive-date">Nov 2024</span>
     <div class="archive-info"><span class="archive-tag-pill">Finish</span><span class="archive-title">Finishing with Oil vs Wax — What I Learned the Hard Way</span></div>
-    <span class="archive-arrow" style="font-size:0.65rem;color:var(--light-brown);">Soon</span>
-  </span>
-  <span class="archive-item" style="opacity:0.45;cursor:default;">
+    <span class="archive-arrow">5 min →</span>
+  </a>
+  <a href="post-bamboo.html" class="archive-item">
     <span class="archive-date">Oct 2024</span>
     <div class="archive-info"><span class="archive-tag-pill">Material</span><span class="archive-title">Bamboo: The Misunderstood Workshop Material</span></div>
-    <span class="archive-arrow" style="font-size:0.65rem;color:var(--light-brown);">Soon</span>
-  </span>
-  <span class="archive-item" style="opacity:0.45;cursor:default;">
+    <span class="archive-arrow">4 min →</span>
+  </a>
+  <a href="post-year.html" class="archive-item">
     <span class="archive-date">Sep 2024</span>
     <div class="archive-info"><span class="archive-tag-pill">Process</span><span class="archive-title">My First Year in the Workshop: An Honest Review</span></div>
-    <span class="archive-arrow" style="font-size:0.65rem;color:var(--light-brown);">Soon</span>
-  </span>
+    <span class="archive-arrow">8 min →</span>
+  </a>
   <a href="post-earrings.html" class="archive-item">
     <span class="archive-date">Dec 2024</span>
     <div class="archive-info"><span class="archive-tag-pill">Jewelry</span><span class="archive-title">Why I Started Making Earrings</span></div>
@@ -183,5 +183,14 @@
   <div class="footer-contact"><p>Hyderabad, Telangana</p><p><a href="mailto:shujauddin@xntric.in">shujauddin@xntric.in</a></p></div>
   <div class="footer-bottom">© 2025 XNTRIC. All rights reserved.</div>
 </footer>
+
 <script>
-  document.getElementById('hamburger').addEventListener('click', () => do
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileNav').classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-nav a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('mobileNav').classList.remove('open'));
+  });
+</script>
+</body>
+</html>
