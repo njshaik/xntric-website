@@ -45,8 +45,15 @@
     <div class="spinner"></div>
   </div>
 
-  <!-- Netlify Identity Widget — MUST be first -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    // Listen for auth message from the popup
+    window.addEventListener('message', function(e) {
+      if (e.data && typeof e.data === 'string' &&
+          e.data.startsWith('authorization:github:success:')) {
+        console.log('Auth message received');
+      }
+    });
+  </script>
 
   <!-- Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
