@@ -18,14 +18,8 @@
     html { scroll-behavior: smooth; }
     body { background: var(--warm-white); color: var(--charcoal); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
 
-    /* HEADER */
-    header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5vw; height: 70px;
-      background: rgba(250,248,244,0.95); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--divider);
-    }
+    /* ── HEADER ── */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 70px; background: rgba(250,248,244,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--divider); }
     .logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; letter-spacing: 0.12em; color: var(--charcoal); text-decoration: none; }
     nav { display: flex; gap: 2.5rem; align-items: center; }
     nav a { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
@@ -36,51 +30,24 @@
     .mobile-nav.open { display: flex; }
     .mobile-nav a { font-family: var(--font-display); font-size: 2.2rem; color: var(--charcoal); text-decoration: none; letter-spacing: 0.05em; }
 
-    /* PAGE HERO */
-    .page-hero {
-      padding: 140px 5vw 6rem;
-      background: var(--cream);
-    }
+    /* ── PAGE HERO ── */
+    .page-hero { padding: 140px 5vw 6rem; background: var(--cream); }
     .page-hero-inner { max-width: 600px; }
     .eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 1rem; }
     .page-title { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); font-weight: 300; line-height: 1.05; }
     .page-title em { font-style: italic; color: var(--brown); }
     .page-desc { font-size: 0.9rem; line-height: 1.8; color: var(--muted); margin-top: 1.4rem; max-width: 450px; }
 
-    /* COLLECTION TABS */
-    .collection-tabs {
-      padding: 2rem 5vw;
-      border-bottom: 1px solid var(--divider);
-      display: flex;
-      gap: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
+    /* ── COLLECTION TABS ── */
+    .collection-tabs { padding: 2rem 5vw; border-bottom: 1px solid var(--divider); display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
     .collection-tabs::-webkit-scrollbar { display: none; }
-    .tab-btn {
-      font-family: var(--font-body);
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      background: none;
-      border: none;
-      padding: 0.6rem 1.8rem;
-      cursor: pointer;
-      color: var(--muted);
-      white-space: nowrap;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: all 0.2s;
-    }
+    .tab-btn { font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; background: none; border: none; padding: 0.6rem 1.8rem; cursor: pointer; color: var(--muted); white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; }
     .tab-btn.active, .tab-btn:hover { color: var(--charcoal); border-bottom-color: var(--charcoal); }
 
-    /* WORKS LIST */
+    /* ── WORKS LIST ── */
     .works-list { padding: 0 5vw 6rem; }
-
-    .work-item {
-      border-bottom: 1px solid var(--divider);
-      overflow: hidden;
-    }
+    .work-item { border-bottom: 1px solid var(--divider); }
+    .work-item.hidden { display: none; }
 
     .work-row {
       display: grid;
@@ -89,61 +56,101 @@
       align-items: center;
       padding: 2.5rem 0;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, padding 0.2s, margin 0.2s;
     }
     .work-row:hover { background: var(--cream); margin: 0 -5vw; padding-left: 5vw; padding-right: 5vw; }
-
     .work-thumb { width: 220px; height: 140px; object-fit: cover; display: block; }
-
-    .work-info {}
     .work-num { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 0.5rem; }
     .work-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 300; line-height: 1.1; margin-bottom: 0.5rem; }
+    .work-title em { font-style: italic; color: var(--brown); }
     .work-sub { font-size: 0.82rem; color: var(--muted); }
+    .work-toggle { font-size: 1.8rem; color: var(--muted); transition: transform 0.3s; flex-shrink: 0; line-height: 1; }
 
-    .work-toggle { font-size: 1.4rem; color: var(--muted); transition: transform 0.3s; flex-shrink: 0; }
-    .work-item.open .work-toggle { transform: rotate(45deg); color: var(--charcoal); }
-
-    /* EXPANDED */
-    .work-expand {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(26, 23, 20, 0.75);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
     }
-    .work-item.open .work-expand { max-height: 900px; }
+    .modal-overlay.open { display: flex; }
 
-    .work-expand-inner {
-      padding: 0 0 3rem;
+    .modal {
+      background: var(--warm-white);
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: flex-end;
+      padding: 1rem 1.2rem 0;
+      background: var(--warm-white);
+    }
+    .modal-close button {
+      background: none;
+      border: 1px solid var(--divider);
+      width: 38px; height: 38px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--charcoal);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close button:hover { background: var(--charcoal); color: var(--cream); border-color: var(--charcoal); }
+
+    .modal-body {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
+      gap: 3rem;
+      padding: 1.5rem 2.5rem 2.5rem;
     }
 
-    /* Slider */
-    .work-slider { position: relative; overflow: hidden; }
+    /* ── MODAL SLIDER ── */
+    .modal-slider { position: relative; overflow: hidden; }
     .slider-track { display: flex; transition: transform 0.4s ease; }
-    .slider-track img { width: 100%; flex-shrink: 0; aspect-ratio: 4/3; object-fit: cover; }
-    .slider-controls { display: flex; gap: 1rem; margin-top: 1rem; align-items: center; }
-    .slider-btn { background: none; border: 1px solid var(--divider); width: 36px; height: 36px; cursor: pointer; font-size: 1rem; color: var(--charcoal); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-    .slider-btn:hover { background: var(--charcoal); color: var(--cream); }
-    .slider-dots { display: flex; gap: 6px; margin-left: auto; }
+    .slider-track img { width: 100%; flex-shrink: 0; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .slider-controls { display: flex; gap: 0.8rem; margin-top: 1rem; align-items: center; }
+    .slider-btn { background: none; border: 1px solid var(--divider); width: 36px; height: 36px; cursor: pointer; font-size: 1rem; color: var(--charcoal); transition: all 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .slider-btn:hover { background: var(--charcoal); color: var(--cream); border-color: var(--charcoal); }
+    .slider-dots { display: flex; gap: 6px; margin-left: auto; align-items: center; }
     .dot { width: 6px; height: 6px; background: var(--divider); border-radius: 50%; cursor: pointer; transition: background 0.2s; }
     .dot.active { background: var(--charcoal); }
 
-    .work-details {}
-    .work-details h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; margin-bottom: 1rem; }
-    .work-details p { font-size: 0.88rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.5rem; }
-    .work-meta { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
-    .meta-row { display: flex; gap: 1rem; font-size: 0.78rem; }
-    .meta-key { color: var(--muted); min-width: 80px; }
-    .meta-val { color: var(--charcoal); }
+    /* ── MODAL DETAILS ── */
+    .modal-details {}
+    .modal-tag { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--light-brown); margin-bottom: 0.6rem; }
+    .modal-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.2rem; }
+    .modal-title em { font-style: italic; color: var(--brown); }
+    .modal-desc { font-size: 0.88rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.8rem; }
+
+    .modal-specs { border-top: 1px solid var(--divider); padding-top: 1.5rem; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .spec-row { display: grid; grid-template-columns: 110px 1fr; font-size: 0.82rem; }
+    .spec-key { color: var(--muted); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 0.05rem; }
+    .spec-val { color: var(--charcoal); }
 
     .btn { display: inline-block; padding: 0.85rem 2.2rem; font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--charcoal); color: var(--charcoal); background: transparent; cursor: pointer; transition: all 0.25s; }
     .btn:hover { background: var(--charcoal); color: var(--warm-white); }
     .btn-filled { background: var(--charcoal); color: var(--warm-white); }
     .btn-filled:hover { background: var(--brown); border-color: var(--brown); }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer { background: var(--charcoal); border-top: 1px solid rgba(255,255,255,0.08); padding: 4rem 5vw; display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: start; color: rgba(250,248,244,0.6); }
     .footer-logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; letter-spacing: 0.12em; color: var(--cream); text-decoration: none; }
     .footer-logo span { display: block; font-size: 0.65rem; font-family: var(--font-body); font-weight: 300; letter-spacing: 0.25em; text-transform: uppercase; color: var(--light-brown); margin-top: 0.2rem; }
@@ -153,22 +160,23 @@
     .footer-contact { text-align: right; }
     .footer-contact p { font-size: 0.82rem; line-height: 1.8; }
     .footer-contact a { color: var(--light-brown); text-decoration: none; }
-    .footer-bottom { grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; font-size: 0.7rem; letter-spacing: 0.08em; text-align: center; color: rgba(250,248,244,0.25); }
+    .footer-bottom { grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; font-size: 0.7rem; text-align: center; color: rgba(250,248,244,0.25); }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { display: none; }
-      .hamburger { display: flex; }
+      nav { display: none; } .hamburger { display: flex; }
       header { justify-content: space-between; }
       .logo { position: absolute; left: 50%; transform: translateX(-50%); }
-      .work-row { grid-template-columns: 100px 1fr auto; gap: 1.2rem; }
-      .work-thumb { width: 100px; height: 70px; }
-      .work-expand-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .work-row { grid-template-columns: 90px 1fr auto; gap: 1rem; }
+      .work-thumb { width: 90px; height: 65px; }
+      .modal-body { grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem 1.2rem 2rem; }
       footer { grid-template-columns: 1fr; text-align: center; }
       .footer-contact { text-align: center; }
     }
   </style>
 </head>
 <body>
+
 <header>
   <a href="index.html" class="logo">XNTRIC</a>
   <nav>
@@ -180,20 +188,20 @@
   <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
 </header>
 <div class="mobile-nav" id="mobileNav">
-  <a href="index.html">Home</a>
-  <a href="works.html">Works</a>
-  <a href="blog.html">Blog</a>
-  <a href="contact.html">Contact</a>
+  <a href="index.html">Home</a><a href="works.html">Works</a>
+  <a href="blog.html">Blog</a><a href="contact.html">Contact</a>
 </div>
 
+<!-- PAGE HERO -->
 <section class="page-hero">
   <div class="page-hero-inner">
     <p class="eyebrow">Portfolio</p>
     <h1 class="page-title">The <em>Works</em></h1>
-    <p class="page-desc">A record of every piece made — from the first chip of chisel to the final coat of oil. Each project begins with a question and ends with something you can hold.</p>
+    <p class="page-desc">A record of every piece made — from the first chip of chisel to the final coat of oil. Click any piece to see the full details.</p>
   </div>
 </section>
 
+<!-- CATEGORY TABS -->
 <div class="collection-tabs">
   <button class="tab-btn active" data-cat="all">All Works</button>
   <button class="tab-btn" data-cat="jewelry">Wooden Jewelry</button>
@@ -202,162 +210,58 @@
   <button class="tab-btn" data-cat="desktop">Desktop Stands</button>
 </div>
 
+<!-- WORKS LIST -->
 <div class="works-list" id="worksList">
 
-  <!-- WORK 1 -->
+  <!-- WORK 1 — Jewelry -->
   <div class="work-item" data-cat="jewelry">
-    <div class="work-row" onclick="toggleWork(this)">
+    <div class="work-row" onclick="openModal('modal-1')">
       <img class="work-thumb" src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&q=80" alt="Walnut Drop Earrings"/>
       <div class="work-info">
         <p class="work-num">01 — Wooden Jewelry</p>
-        <h2 class="work-title">Walnut Drop Earrings</h2>
+        <h2 class="work-title">Walnut <em>Drop</em> Earrings</h2>
         <p class="work-sub">Lightweight elegance, hand-cut from solid walnut</p>
       </div>
       <span class="work-toggle">+</span>
     </div>
-    <div class="work-expand">
-      <div class="work-expand-inner">
-        <div class="work-slider">
-          <div class="slider-track">
-            <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=700&q=80" alt="s1"/>
-            <img src="https://images.unsplash.com/photo-1573408301185-9519f94bcc93?w=700&q=80" alt="s2"/>
-            <img src="https://images.unsplash.com/photo-1518611507436-f9221403cca2?w=700&q=80" alt="s3"/>
-          </div>
-          <div class="slider-controls">
-            <button class="slider-btn" onclick="slide(this,-1)">&#8592;</button>
-            <button class="slider-btn" onclick="slide(this,1)">&#8594;</button>
-            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
-          </div>
-        </div>
-        <div class="work-details">
-          <h3>Walnut Drop Earrings</h3>
-          <p>Cut from a single piece of black walnut, these drop earrings weigh almost nothing and catch the light in the most surprising ways. The grain runs vertically through each piece, so no two pairs are ever the same.</p>
-          <p>Finished with food-safe beeswax and fitted with sterling silver hooks. Available in three lengths.</p>
-          <div class="work-meta">
-            <div class="meta-row"><span class="meta-key">Material</span><span class="meta-val">Black Walnut</span></div>
-            <div class="meta-row"><span class="meta-key">Finish</span><span class="meta-val">Beeswax polish</span></div>
-            <div class="meta-row"><span class="meta-key">Year</span><span class="meta-val">2024</span></div>
-          </div>
-          <a href="contact.html" class="btn btn-filled">Contact for Customisation</a>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- WORK 2 -->
+  <!-- WORK 2 — Mobile -->
   <div class="work-item" data-cat="mobile">
-    <div class="work-row" onclick="toggleWork(this)">
+    <div class="work-row" onclick="openModal('modal-2')">
       <img class="work-thumb" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Minimal Bamboo Phone Dock"/>
       <div class="work-info">
         <p class="work-num">02 — Mobile Stand</p>
-        <h2 class="work-title">Minimal Bamboo Phone Dock</h2>
+        <h2 class="work-title">Minimal <em>Bamboo</em> Phone Dock</h2>
         <p class="work-sub">Clean angles, cable pass-through, natural bamboo</p>
       </div>
       <span class="work-toggle">+</span>
     </div>
-    <div class="work-expand">
-      <div class="work-expand-inner">
-        <div class="work-slider">
-          <div class="slider-track">
-            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80" alt="s1"/>
-            <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=700&q=80" alt="s2"/>
-          </div>
-          <div class="slider-controls">
-            <button class="slider-btn" onclick="slide(this,-1)">&#8592;</button>
-            <button class="slider-btn" onclick="slide(this,1)">&#8594;</button>
-            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
-          </div>
-        </div>
-        <div class="work-details">
-          <h3>Minimal Bamboo Phone Dock</h3>
-          <p>A phone stand that disappears into your desk. The dock holds your device at a 65° viewing angle and has a discreet channel routed along the back for your charging cable.</p>
-          <p>Works with all phone sizes. Available with or without wireless charging cutout.</p>
-          <div class="work-meta">
-            <div class="meta-row"><span class="meta-key">Material</span><span class="meta-val">Bamboo</span></div>
-            <div class="meta-row"><span class="meta-key">Finish</span><span class="meta-val">Danish oil</span></div>
-            <div class="meta-row"><span class="meta-key">Year</span><span class="meta-val">2024</span></div>
-          </div>
-          <a href="contact.html" class="btn btn-filled">Contact for Customisation</a>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- WORK 3 -->
+  <!-- WORK 3 — Laptop -->
   <div class="work-item" data-cat="laptop">
-    <div class="work-row" onclick="toggleWork(this)">
+    <div class="work-row" onclick="openModal('modal-3')">
       <img class="work-thumb" src="https://images.unsplash.com/photo-1593642634367-d91a135587b5?w=400&q=80" alt="Arc Laptop Riser"/>
       <div class="work-info">
         <p class="work-num">03 — Laptop Stand</p>
-        <h2 class="work-title">Arc Laptop Riser</h2>
+        <h2 class="work-title">Arc <em>Laptop</em> Riser</h2>
         <p class="work-sub">One-piece joinery, ventilated, perfectly balanced</p>
       </div>
       <span class="work-toggle">+</span>
     </div>
-    <div class="work-expand">
-      <div class="work-expand-inner">
-        <div class="work-slider">
-          <div class="slider-track">
-            <img src="https://images.unsplash.com/photo-1593642634367-d91a135587b5?w=700&q=80" alt="s1"/>
-            <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700&q=80" alt="s2"/>
-          </div>
-          <div class="slider-controls">
-            <button class="slider-btn" onclick="slide(this,-1)">&#8592;</button>
-            <button class="slider-btn" onclick="slide(this,1)">&#8594;</button>
-            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
-          </div>
-        </div>
-        <div class="work-details">
-          <h3>Arc Laptop Riser</h3>
-          <p>Shaped from a single plank of teak using only hand tools and a template. The arched base keeps the stand rigid without needing glue or fasteners — everything locks together with mortise and tenon joints.</p>
-          <p>Fits 13" to 16" laptops. Custom heights available on request.</p>
-          <div class="work-meta">
-            <div class="meta-row"><span class="meta-key">Material</span><span class="meta-val">Teak</span></div>
-            <div class="meta-row"><span class="meta-key">Finish</span><span class="meta-val">Teak oil</span></div>
-            <div class="meta-row"><span class="meta-key">Year</span><span class="meta-val">2023</span></div>
-          </div>
-          <a href="contact.html" class="btn btn-filled">Contact for Customisation</a>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- WORK 4 -->
+  <!-- WORK 4 — Desktop -->
   <div class="work-item" data-cat="desktop">
-    <div class="work-row" onclick="toggleWork(this)">
+    <div class="work-row" onclick="openModal('modal-4')">
       <img class="work-thumb" src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=400&q=80" alt="Studio Desk Organiser"/>
       <div class="work-info">
         <p class="work-num">04 — Desktop Stand</p>
-        <h2 class="work-title">Studio Desk Organiser</h2>
+        <h2 class="work-title">Studio <em>Desk</em> Organiser</h2>
         <p class="work-sub">Monitor riser, cable tray, pen cup — all in one</p>
       </div>
       <span class="work-toggle">+</span>
-    </div>
-    <div class="work-expand">
-      <div class="work-expand-inner">
-        <div class="work-slider">
-          <div class="slider-track">
-            <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=700&q=80" alt="s1"/>
-            <img src="https://images.unsplash.com/photo-1595750580175-94060b9d8f4c?w=700&q=80" alt="s2"/>
-          </div>
-          <div class="slider-controls">
-            <button class="slider-btn" onclick="slide(this,-1)">&#8592;</button>
-            <button class="slider-btn" onclick="slide(this,1)">&#8594;</button>
-            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
-          </div>
-        </div>
-        <div class="work-details">
-          <h3>Studio Desk Organiser</h3>
-          <p>The desk piece that started it all. A wide monitor riser with an integrated cable management tray, a shallow drawer for stationery, and a cylindrical pen holder that slots in at either end.</p>
-          <p>Made in sheesham (Indian rosewood). Each one takes around 18 hours from timber to finish.</p>
-          <div class="work-meta">
-            <div class="meta-row"><span class="meta-key">Material</span><span class="meta-val">Sheesham / Rosewood</span></div>
-            <div class="meta-row"><span class="meta-key">Finish</span><span class="meta-val">Linseed oil + wax</span></div>
-            <div class="meta-row"><span class="meta-key">Year</span><span class="meta-val">2022</span></div>
-          </div>
-          <a href="contact.html" class="btn btn-filled">Contact for Customisation</a>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -365,9 +269,176 @@
 
 <div style="padding:0 5vw 5rem;text-align:center;border-top:1px solid var(--divider);">
   <p style="font-size:0.85rem;color:var(--muted);margin:3rem 0 1.5rem;">Have something specific in mind?</p>
-  <a href="contact.html" class="btn btn-filled">Contact for Customisation</a>
+  <a href="contact.html" class="btn btn-filled">Contact for a Custom Order</a>
 </div>
 
+<!-- ══════════════════════════════════════
+     MODALS — one per work item
+     ══════════════════════════════════════ -->
+
+<!-- MODAL 1 — Walnut Drop Earrings -->
+<div class="modal-overlay" id="modal-1" onclick="closeOnOverlay(event, 'modal-1')">
+  <div class="modal">
+    <div class="modal-close"><button onclick="closeModal('modal-1')" aria-label="Close">✕</button></div>
+    <div class="modal-body">
+      <!-- Slider -->
+      <div class="modal-slider">
+        <div class="slider-track" data-current="0">
+          <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=85" alt="Walnut earrings front"/>
+          <img src="https://images.unsplash.com/photo-1573408301185-9519f94bcc93?w=800&q=85" alt="Earring blanks"/>
+          <img src="https://images.unsplash.com/photo-1518611507436-f9221403cca2?w=800&q=85" alt="Finished pair"/>
+        </div>
+        <div class="slider-controls">
+          <button class="slider-btn" onclick="slide(this,-1)">←</button>
+          <button class="slider-btn" onclick="slide(this,1)">→</button>
+          <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Details -->
+      <div class="modal-details">
+        <p class="modal-tag">Wooden Jewelry</p>
+        <h2 class="modal-title">Walnut <em>Drop</em> Earrings</h2>
+        <p class="modal-desc">Cut from a single piece of black walnut, these drop earrings weigh almost nothing and catch the light in the most surprising ways. The grain runs vertically through each piece, so no two pairs are ever the same.</p>
+        <p class="modal-desc">Finished with food-safe beeswax and fitted with sterling silver hooks. Available in three lengths.</p>
+        <div class="modal-specs">
+          <div class="spec-row"><span class="spec-key">Wood</span><span class="spec-val">Black Walnut</span></div>
+          <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Beeswax polish</span></div>
+          <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">45mm × 12mm (medium)</span></div>
+          <div class="spec-row"><span class="spec-key">Tools Used</span><span class="spec-val">Scroll saw, files, sandpaper</span></div>
+          <div class="spec-row"><span class="spec-key">Hardware</span><span class="spec-val">Sterling silver hooks</span></div>
+          <div class="spec-row"><span class="spec-key">Year</span><span class="spec-val">2024</span></div>
+          <div class="spec-row"><span class="spec-key">Custom Orders</span><span class="spec-val">Available — 3 sizes</span></div>
+        </div>
+        <a href="contact.html" class="btn btn-filled">Commission This Piece</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 2 — Bamboo Phone Dock -->
+<div class="modal-overlay" id="modal-2" onclick="closeOnOverlay(event, 'modal-2')">
+  <div class="modal">
+    <div class="modal-close"><button onclick="closeModal('modal-2')" aria-label="Close">✕</button></div>
+    <div class="modal-body">
+      <div class="modal-slider">
+        <div class="slider-track" data-current="0">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85" alt="Phone dock front"/>
+          <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=85" alt="Phone dock side"/>
+        </div>
+        <div class="slider-controls">
+          <button class="slider-btn" onclick="slide(this,-1)">←</button>
+          <button class="slider-btn" onclick="slide(this,1)">→</button>
+          <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-details">
+        <p class="modal-tag">Mobile Stand</p>
+        <h2 class="modal-title">Minimal <em>Bamboo</em> Phone Dock</h2>
+        <p class="modal-desc">A phone stand that disappears into your desk. The dock holds your device at a 65° viewing angle and has a discreet channel routed along the back for your charging cable.</p>
+        <p class="modal-desc">Works with all phone sizes. Available with or without wireless charging cutout.</p>
+        <div class="modal-specs">
+          <div class="spec-row"><span class="spec-key">Wood</span><span class="spec-val">Bamboo</span></div>
+          <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Danish oil</span></div>
+          <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">120mm × 80mm × 95mm</span></div>
+          <div class="spec-row"><span class="spec-key">Viewing Angle</span><span class="spec-val">65°</span></div>
+          <div class="spec-row"><span class="spec-key">Tools Used</span><span class="spec-val">Router, chisels, hand plane</span></div>
+          <div class="spec-row"><span class="spec-key">Year</span><span class="spec-val">2024</span></div>
+          <div class="spec-row"><span class="spec-key">Custom Orders</span><span class="spec-val">Available</span></div>
+        </div>
+        <a href="contact.html" class="btn btn-filled">Commission This Piece</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3 — Arc Laptop Riser -->
+<div class="modal-overlay" id="modal-3" onclick="closeOnOverlay(event, 'modal-3')">
+  <div class="modal">
+    <div class="modal-close"><button onclick="closeModal('modal-3')" aria-label="Close">✕</button></div>
+    <div class="modal-body">
+      <div class="modal-slider">
+        <div class="slider-track" data-current="0">
+          <img src="https://images.unsplash.com/photo-1593642634367-d91a135587b5?w=800&q=85" alt="Laptop riser front"/>
+          <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&q=85" alt="Laptop riser side"/>
+        </div>
+        <div class="slider-controls">
+          <button class="slider-btn" onclick="slide(this,-1)">←</button>
+          <button class="slider-btn" onclick="slide(this,1)">→</button>
+          <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-details">
+        <p class="modal-tag">Laptop Stand</p>
+        <h2 class="modal-title">Arc <em>Laptop</em> Riser</h2>
+        <p class="modal-desc">Shaped from a single plank of teak using only hand tools and a template. The arched base keeps the stand rigid without needing glue or fasteners — everything locks together with mortise and tenon joints.</p>
+        <p class="modal-desc">Fits 13" to 16" laptops. Custom heights available on request.</p>
+        <div class="modal-specs">
+          <div class="spec-row"><span class="spec-key">Wood</span><span class="spec-val">Teak</span></div>
+          <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Teak oil</span></div>
+          <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">380mm × 240mm × 120mm</span></div>
+          <div class="spec-row"><span class="spec-key">Fits</span><span class="spec-val">13" – 16" laptops</span></div>
+          <div class="spec-row"><span class="spec-key">Joinery</span><span class="spec-val">Mortise and tenon</span></div>
+          <div class="spec-row"><span class="spec-key">Tools Used</span><span class="spec-val">Hand saw, chisels, mallet, hand plane</span></div>
+          <div class="spec-row"><span class="spec-key">Year</span><span class="spec-val">2023</span></div>
+          <div class="spec-row"><span class="spec-key">Custom Orders</span><span class="spec-val">Available — custom heights</span></div>
+        </div>
+        <a href="contact.html" class="btn btn-filled">Commission This Piece</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 4 — Studio Desk Organiser -->
+<div class="modal-overlay" id="modal-4" onclick="closeOnOverlay(event, 'modal-4')">
+  <div class="modal">
+    <div class="modal-close"><button onclick="closeModal('modal-4')" aria-label="Close">✕</button></div>
+    <div class="modal-body">
+      <div class="modal-slider">
+        <div class="slider-track" data-current="0">
+          <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=85" alt="Desk organiser front"/>
+          <img src="https://images.unsplash.com/photo-1595750580175-94060b9d8f4c?w=800&q=85" alt="Desk organiser detail"/>
+        </div>
+        <div class="slider-controls">
+          <button class="slider-btn" onclick="slide(this,-1)">←</button>
+          <button class="slider-btn" onclick="slide(this,1)">→</button>
+          <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-details">
+        <p class="modal-tag">Desktop Stand</p>
+        <h2 class="modal-title">Studio <em>Desk</em> Organiser</h2>
+        <p class="modal-desc">The desk piece that started it all. A wide monitor riser with an integrated cable management tray, a shallow drawer for stationery, and a cylindrical pen holder that slots in at either end.</p>
+        <p class="modal-desc">Made in sheesham (Indian rosewood). Each one takes around 18 hours from timber to finish.</p>
+        <div class="modal-specs">
+          <div class="spec-row"><span class="spec-key">Wood</span><span class="spec-val">Sheesham / Indian Rosewood</span></div>
+          <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Linseed oil + wax</span></div>
+          <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">600mm × 280mm × 110mm</span></div>
+          <div class="spec-row"><span class="spec-key">Features</span><span class="spec-val">Cable tray, drawer, pen holder</span></div>
+          <div class="spec-row"><span class="spec-key">Tools Used</span><span class="spec-val">Hand saw, router, chisels, hand plane</span></div>
+          <div class="spec-row"><span class="spec-key">Build Time</span><span class="spec-val">~18 hours</span></div>
+          <div class="spec-row"><span class="spec-key">Year</span><span class="spec-val">2022</span></div>
+          <div class="spec-row"><span class="spec-key">Custom Orders</span><span class="spec-val">Available</span></div>
+        </div>
+        <a href="contact.html" class="btn btn-filled">Commission This Piece</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
   <div><a href="index.html" class="footer-logo">XNTRIC<span>Handcrafted Artisanry</span></a></div>
   <nav class="footer-nav">
@@ -382,20 +453,67 @@
 </footer>
 
 <script>
-  const hamburger = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
-  hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
-  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
+  // ── Mobile nav ──
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('open'));
+  document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', () => document.getElementById('mobileNav').classList.remove('open')));
 
-  function toggleWork(row) {
-    const item = row.closest('.work-item');
-    const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.work-item.open').forEach(el => el.classList.remove('open'));
-    if (!wasOpen) item.classList.add('open');
+  // ── Category tab filtering ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active tab
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cat = btn.dataset.cat;
+
+      // Show/hide work items
+      document.querySelectorAll('.work-item').forEach(item => {
+        if (cat === 'all' || item.dataset.cat === cat) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // ── Modal open/close ──
+  function openModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+    // Reset slider to first image
+    const track = modal.querySelector('.slider-track');
+    track.dataset.current = '0';
+    track.style.transform = 'translateX(0)';
+    modal.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === 0));
   }
 
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close modal if clicking on the dark overlay (outside the white box)
+  function closeOnOverlay(event, id) {
+    if (event.target === event.currentTarget) {
+      closeModal(id);
+    }
+  }
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+
+  // ── Image slider inside modals ──
   function slide(btn, dir) {
-    const slider = btn.closest('.work-slider');
+    const slider = btn.closest('.modal-slider');
     const track = slider.querySelector('.slider-track');
     const images = track.querySelectorAll('img');
     const dots = slider.querySelectorAll('.dot');
@@ -405,10 +523,6 @@
     track.style.transform = `translateX(-${current * 100}%)`;
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
   }
-
-  // Tab filtering
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.dataset.c
+</script>
+</body>
+</html>
