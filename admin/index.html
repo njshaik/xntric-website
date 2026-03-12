@@ -45,16 +45,6 @@
     <div class="spinner"></div>
   </div>
 
-  <script>
-    // Listen for auth message from the popup
-    window.addEventListener('message', function(e) {
-      if (e.data && typeof e.data === 'string' &&
-          e.data.startsWith('authorization:github:success:')) {
-        console.log('Auth message received');
-      }
-    });
-  </script>
-
   <!-- Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
@@ -64,7 +54,7 @@
         const loader = document.getElementById('cms-loading');
         if (loader) {
           loader.style.opacity = '0';
-          setTimeout(() => loader.remove(), 500);
+          setTimeout(function() { loader.remove(); }, 500);
         }
       }, 1800);
     });
