@@ -7,8 +7,10 @@
 # ============================================================
 
 backend:
-  name: git-gateway        # Netlify handles GitHub auth — no OAuth app needed
+  name: github
+  repo: njshaik/xntric-website
   branch: main
+  base_url: https://api.decapcms.org
 
 # Where CMS-uploaded images are stored
 media_folder: "images/uploads"
