@@ -1,8 +1,8 @@
 backend:
   name: github
-  repo: njshaik/xntric-website
+  repo: njshaik/xntric-website        # ← your GitHub username/repo
   branch: main
-  base_url: https://xntric-website.vercel.app
+  base_url: https://xntric-website.vercel.app   # ← your Vercel URL (no trailing slash)
   auth_endpoint: /api/auth
 
 media_folder: "images/uploads"
@@ -16,14 +16,14 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Post Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime", date_format: "DD MMM YYYY", time_format: false }
-      - { label: "Category", name: "category", widget: "select", options: ["process","tools","design","material","finish","jewelry"] }
-      - { label: "Read Time (mins)", name: "read_time", widget: "number", default: 4, value_type: "int" }
-      - { label: "Cover Image", name: "cover", widget: "image" }
-      - { label: "Excerpt", name: "excerpt", widget: "text" }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Featured?", name: "featured", widget: "boolean", default: false }
+      - { label: "Post Title",        name: "title",    widget: "string" }
+      - { label: "Publish Date",      name: "date",     widget: "datetime", date_format: "DD MMM YYYY", time_format: false }
+      - { label: "Category",          name: "category", widget: "select", options: ["process","tools","design","material","finish","jewelry"] }
+      - { label: "Read Time (mins)",  name: "read_time",widget: "number",  default: 4, value_type: "int" }
+      - { label: "Cover Image",       name: "cover",    widget: "image" }
+      - { label: "Excerpt",           name: "excerpt",  widget: "text" }
+      - { label: "Body",              name: "body",     widget: "markdown" }
+      - { label: "Featured?",         name: "featured", widget: "boolean", default: false }
 
   - name: "works"
     label: "Works"
@@ -31,15 +31,15 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["jewelry","mobile","laptop","desktop"] }
-      - { label: "Tagline", name: "tagline", widget: "string" }
-      - { label: "Thumbnail", name: "thumb", widget: "image" }
-      - { label: "Description", name: "body", widget: "markdown" }
-      - { label: "Material", name: "material", widget: "string" }
-      - { label: "Finish", name: "finish", widget: "string" }
-      - { label: "Year", name: "year", widget: "number", default: 2025, value_type: "int" }
-      - { label: "Custom Order?", name: "custom_available", widget: "boolean", default: true }
+      - { label: "Title",          name: "title",            widget: "string" }
+      - { label: "Category",       name: "category",         widget: "select", options: ["jewelry","mobile","laptop","desktop"] }
+      - { label: "Tagline",        name: "tagline",          widget: "string" }
+      - { label: "Thumbnail",      name: "thumb",            widget: "image" }
+      - { label: "Description",    name: "body",             widget: "markdown" }
+      - { label: "Material",       name: "material",         widget: "string" }
+      - { label: "Finish",         name: "finish",           widget: "string" }
+      - { label: "Year",           name: "year",             widget: "number", default: 2025, value_type: "int" }
+      - { label: "Custom Order?",  name: "custom_available", widget: "boolean", default: true }
 
   - name: "gallery"
     label: "Gallery"
@@ -47,8 +47,8 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Caption", name: "title", widget: "string" }
-      - { label: "Image", name: "image", widget: "image" }
-      - { label: "Category", name: "category", widget: "select", options: ["wip","finished","workshop","detail"] }
+      - { label: "Caption",           name: "title",    widget: "string" }
+      - { label: "Image",             name: "image",    widget: "image" }
+      - { label: "Category",          name: "category", widget: "select", options: ["wip","finished","workshop","detail"] }
       - { label: "Show on Homepage?", name: "homepage", widget: "boolean", default: true }
-      - { label: "Date", name: "date", widget: "datetime", date_format: "DD MMM YYYY", time_format: false }
+      - { label: "Date",              name: "date",     widget: "datetime", date_format: "DD MMM YYYY", time_format: false }
