@@ -1,94 +1,83 @@
 export default async function handler(req, res) {
-  const { code } = req.query;
+  const { code, provider } = req.query;
   const CLIENT_ID = process.env.OAUTH_CLIENT_ID;
   const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET;
 
-  // Step 1 — No code yet, redirect to GitHub login
+  // No code — send user to GitHub
   if (!code) {
     const params = new URLSearchParams({
       client_id: CLIENT_ID,
       scope: 'repo,user',
-      allow_signup: 'true'
     });
-    return res.redirect(`https://github.com/login/oauth/authorize?${params}`);
+    return res.redirect(
+      `https://github.com/login/oauth/authorize?${params.toString()}`
+    );
   }
 
-  // Step 2 — Got code back from GitHub, exchange for token
+  // Got code — exchange for token
   try {
-    const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        code
-      })
-    });
+    const tokenRes = await fetch(
+      'https://github.com/login/oauth/access_token',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          code,
+        }),
+      }
+    );
 
-    const data = await tokenRes.json();
+    const tokenData = await tokenRes.json();
+    const token = tokenData.access_token;
 
-    if (data.error || !data.access_token) {
-      return res.status(401).send(`
-        <html><body>
-        <p style="font-family:sans-serif;color:red;text-align:center;margin-top:3rem;">
-          Login failed: ${data.error_description || 'No token received'}
-        </p>
-        </body></html>
-      `);
+    if (!token) {
+      return res.status(401).send('Login failed — no token received.');
     }
 
-    // Step 3 — Send token back to the CMS using postMessage
-    const token = data.access_token;
-    const message = JSON.stringify({
-      token,
-      provider: 'github'
-    });
-
+    // Send token back using the EXACT format Decap CMS listens for
     return res.send(`
       <!DOCTYPE html>
       <html>
-      <head><title>Logging in to XNTRIC Admin...</title></head>
-      <body style="background:#1a1714;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
-        <p style="font-family:'DM Sans',sans-serif;color:#f5f0e8;font-size:0.9rem;letter-spacing:0.1em;">
-          Logging you in...
-        </p>
+      <head>
+        <title>XNTRIC Admin — Logging in</title>
+        <style>
+          body { background: #1a1714; display: flex; align-items: center;
+                 justify-content: center; height: 100vh; margin: 0;
+                 font-family: sans-serif; color: #f5f0e8; }
+          p { letter-spacing: 0.1em; font-size: 0.85rem; opacity: 0.7; }
+        </style>
+      </head>
+      <body>
+        <p>Logging you in to XNTRIC Admin...</p>
         <script>
-          (function() {
-            // The exact format Decap CMS expects
-            var msg = 'authorization:github:success:${token}';
+          var receiveMessage = function(e) {};
+          var data = ${JSON.stringify({ token, provider: 'github' })};
+          var str = JSON.stringify(data);
 
-            function send() {
-              if (window.opener && !window.opener.closed) {
-                window.opener.postMessage(
-                  'authorization:github:success:' + JSON.stringify({ token: '${token}', provider: 'github' }),
-                  window.location.origin
-                );
-                setTimeout(function() { window.close(); }, 500);
-              } else {
-                // Fallback — redirect directly to admin
-                window.location.href = '/admin/';
-              }
-            }
-
-            // Try immediately and also after a short delay
-            send();
-            setTimeout(send, 800);
-          })();
+          if (window.opener) {
+            window.opener.postMessage(
+              'authorization:github:success:' + str,
+              '*'
+            );
+            setTimeout(function(){ window.close(); }, 1000);
+          } else {
+            // No opener — store token and redirect
+            localStorage.setItem('netlify-cms-user', JSON.stringify({
+              token: data.token,
+              provider: 'github'
+            }));
+            window.location.replace('/admin/');
+          }
         </script>
       </body>
       </html>
     `);
-
   } catch (err) {
-    return res.status(500).send(`
-      <html><body>
-      <p style="font-family:sans-serif;color:red;text-align:center;margin-top:3rem;">
-        Server error: ${err.message}
-      </p>
-      </body></html>
-    `);
+    return res.status(500).send('Server error: ' + err.message);
   }
 }
