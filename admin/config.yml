@@ -2,25 +2,27 @@ backend:
   name: github
   repo: njshaik/xntric-website
   branch: main
-  base_url: https://api.decapcms.org
+  base_url: https://xntric-website.vercel.app
+  auth_endpoint: /api/auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+
   - name: "blog"
     label: "Blog Posts"
-    label_singular: "Blog Post"
     folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Post Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Category", name: "category", widget: "select", options: ["Process", "Tools", "Design", "Material", "Finish", "Jewelry"] }
+      - { label: "Publish Date", name: "date", widget: "datetime", date_format: "DD MMM YYYY", time_format: false }
+      - { label: "Category", name: "category", widget: "select", options: ["process","tools","design","material","finish","jewelry"] }
+      - { label: "Read Time (mins)", name: "read_time", widget: "number", default: 4, value_type: "int" }
       - { label: "Cover Image", name: "cover", widget: "image" }
-      - { label: "Short Excerpt", name: "excerpt", widget: "text" }
-      - { label: "Post Body", name: "body", widget: "markdown" }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Featured?", name: "featured", widget: "boolean", default: false }
 
   - name: "works"
@@ -30,13 +32,14 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["jewelry", "mobile", "laptop", "desktop"] }
+      - { label: "Category", name: "category", widget: "select", options: ["jewelry","mobile","laptop","desktop"] }
       - { label: "Tagline", name: "tagline", widget: "string" }
       - { label: "Thumbnail", name: "thumb", widget: "image" }
       - { label: "Description", name: "body", widget: "markdown" }
       - { label: "Material", name: "material", widget: "string" }
       - { label: "Finish", name: "finish", widget: "string" }
-      - { label: "Year", name: "year", widget: "number", default: 2025 }
+      - { label: "Year", name: "year", widget: "number", default: 2025, value_type: "int" }
+      - { label: "Custom Order?", name: "custom_available", widget: "boolean", default: true }
 
   - name: "gallery"
     label: "Gallery"
@@ -46,5 +49,6 @@ collections:
     fields:
       - { label: "Caption", name: "title", widget: "string" }
       - { label: "Image", name: "image", widget: "image" }
-      - { label: "Category", name: "category", widget: "select", options: ["wip", "finished", "workshop", "detail"] }
+      - { label: "Category", name: "category", widget: "select", options: ["wip","finished","workshop","detail"] }
       - { label: "Show on Homepage?", name: "homepage", widget: "boolean", default: true }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "DD MMM YYYY", time_format: false }
